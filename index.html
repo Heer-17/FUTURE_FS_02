@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Mini CRM System — Client Lead Management by Heer Patel | Future Interns Task 2" />
+  <title>Mini CRM | Heer Patel — Future Interns Task 2</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- LOGIN PAGE -->
+  <div class="login-page" id="loginPage">
+    <div class="login-bg">
+      <div class="blob b1"></div>
+      <div class="blob b2"></div>
+    </div>
+    <div class="login-card">
+      <div class="login-logo">CRM<span>.</span></div>
+      <h2>Admin Login</h2>
+      <p class="login-sub">Sign in to manage your leads</p>
+      <div class="login-form">
+        <div class="input-group">
+          <label>Username</label>
+          <input type="text" id="loginUser" placeholder="admin" />
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" id="loginPass" placeholder="••••••••" />
+        </div>
+        <div class="login-hint">Use: <strong>admin</strong> / <strong>admin123</strong></div>
+        <button class="btn btn-primary btn-full" onclick="handleLogin()">Login →</button>
+        <div class="login-error" id="loginError">❌ Invalid credentials</div>
+      </div>
+      <div class="login-footer">Mini CRM · Future Interns Task 2 · Heer Patel</div>
+    </div>
+  </div>
+
+  <!-- MAIN APP -->
+  <div class="app" id="app" style="display:none">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">CRM<span>.</span></div>
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" onclick="showPage('dashboard',this)">
+          <span class="nav-icon">📊</span><span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showPage('leads',this)">
+          <span class="nav-icon">👥</span><span>All Leads</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showPage('add',this)">
+          <span class="nav-icon">➕</span><span>Add Lead</span>
+        </a>
+      </nav>
+      <div class="sidebar-user">
+        <div class="user-avatar">HP</div>
+        <div>
+          <strong>Heer Patel</strong>
+          <p>Admin</p>
+        </div>
+        <button class="logout-btn" onclick="handleLogout()" title="Logout">⏻</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+      <!-- TOP BAR -->
+      <div class="topbar">
+        <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()">☰</button>
+        <div class="topbar-title" id="topbarTitle">Dashboard</div>
+        <div class="topbar-right">
+          <div class="search-box">
+            <span>🔍</span>
+            <input type="text" id="searchInput" placeholder="Search leads..." oninput="searchLeads()" />
+          </div>
+        </div>
+      </div>
+
+      <!-- DASHBOARD PAGE -->
+      <div class="page active" id="page-dashboard">
+        <div class="page-header">
+          <h1>Dashboard</h1>
+          <p>Welcome back, Heer! Here's your leads overview.</p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(124,58,237,0.15)">👥</div>
+            <div class="stat-info">
+              <span class="stat-num" id="statTotal">0</span>
+              <span class="stat-label">Total Leads</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(59,130,246,0.15)">🆕</div>
+            <div class="stat-info">
+              <span class="stat-num" id="statNew">0</span>
+              <span class="stat-label">New Leads</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(234,179,8,0.15)">📞</div>
+            <div class="stat-info">
+              <span class="stat-num" id="statContacted">0</span>
+              <span class="stat-label">Contacted</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(34,197,94,0.15)">✅</div>
+            <div class="stat-info">
+              <span class="stat-num" id="statConverted">0</span>
+              <span class="stat-label">Converted</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="card">
+            <div class="card-header">
+              <h3>Recent Leads</h3>
+              <button class="btn btn-sm" onclick="showPage('leads', document.querySelector('[onclick*=leads]'))">View All</button>
+            </div>
+            <div id="recentLeads"></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3>Lead Sources</h3></div>
+            <div id="sourcesChart"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LEADS PAGE -->
+      <div class="page" id="page-leads">
+        <div class="page-header">
+          <h1>All Leads</h1>
+          <button class="btn btn-primary" onclick="showPage('add', document.querySelector('[onclick*=add]'))">+ Add Lead</button>
+        </div>
+
+        <div class="filters">
+          <button class="filter-btn active" onclick="filterLeads('All', this)">All</button>
+          <button class="filter-btn" onclick="filterLeads('New', this)">🆕 New</button>
+          <button class="filter-btn" onclick="filterLeads('Contacted', this)">📞 Contacted</button>
+          <button class="filter-btn" onclick="filterLeads('Converted', this)">✅ Converted</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="leads-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Source</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="leadsTableBody"></tbody>
+          </table>
+          <div class="empty-state" id="emptyState" style="display:none">
+            <div class="empty-icon">👥</div>
+            <p>No leads found</p>
+            <button class="btn btn-primary" onclick="showPage('add', document.querySelector('[onclick*=add]'))">Add First Lead</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADD LEAD PAGE -->
+      <div class="page" id="page-add">
+        <div class="page-header">
+          <h1 id="formTitle">Add New Lead</h1>
+        </div>
+        <div class="form-card">
+          <input type="hidden" id="editId" />
+          <div class="form-grid">
+            <div class="input-group">
+              <label>Full Name *</label>
+              <input type="text" id="fName" placeholder="e.g. Raj Sharma" />
+            </div>
+            <div class="input-group">
+              <label>Email Address *</label>
+              <input type="email" id="fEmail" placeholder="raj@example.com" />
+            </div>
+            <div class="input-group">
+              <label>Phone Number</label>
+              <input type="tel" id="fPhone" placeholder="+91 98765 43210" />
+            </div>
+            <div class="input-group">
+              <label>Company</label>
+              <input type="text" id="fCompany" placeholder="Company Name" />
+            </div>
+            <div class="input-group">
+              <label>Lead Source</label>
+              <select id="fSource">
+                <option>Website</option>
+                <option>LinkedIn</option>
+                <option>Referral</option>
+                <option>Cold Call</option>
+                <option>Email</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label>Status</label>
+              <select id="fStatus">
+                <option>New</option>
+                <option>Contacted</option>
+                <option>Converted</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-group" style="margin-top:1rem">
+            <label>Notes</label>
+            <textarea id="fNote" rows="3" placeholder="Add a note about this lead..."></textarea>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-outline" onclick="resetForm()">Cancel</button>
+            <button class="btn btn-primary" onclick="saveLead()">Save Lead ✦</button>
+          </div>
+          <div class="form-msg" id="formMsg"></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- LEAD DETAIL MODAL -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h3 id="modalName"></h3>
+        <button onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-info-grid" id="modalInfo"></div>
+        <div class="modal-notes">
+          <h4>Notes & Follow-ups</h4>
+          <div id="modalNotesList"></div>
+          <div class="add-note">
+            <input type="text" id="newNoteInput" placeholder="Add a follow-up note..." />
+            <button class="btn btn-primary btn-sm" onclick="addNote()">Add</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="editFromModal()">✏️ Edit</button>
+        <button class="btn btn-danger" onclick="deleteLead()">🗑️ Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
