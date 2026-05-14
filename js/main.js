@@ -5,11 +5,11 @@
 
 // --- STATE ---
 let leads = JSON.parse(localStorage.getItem('crm_leads')) || [
-  { id: '1', name: 'Raj Sharma', email: 'raj@example.com', phone: '+91 98765 43210', company: 'TechCorp', source: 'Website', status: 'New', notes: [{ id: 'n1', text: 'Interested in web development services', date: '2025-05-01' }], date: '2025-05-01' },
-  { id: '2', name: 'Priya Mehta', email: 'priya@gmail.com', phone: '+91 87654 32109', company: 'StartupXYZ', source: 'LinkedIn', status: 'Contacted', notes: [{ id: 'n2', text: 'Follow up next week', date: '2025-05-03' }], date: '2025-05-03' },
-  { id: '3', name: 'Amit Patel', email: 'amit@business.com', phone: '+91 76543 21098', company: 'Patel & Co.', source: 'Referral', status: 'Converted', notes: [{ id: 'n3', text: 'Signed the contract!', date: '2025-05-05' }], date: '2025-05-05' },
-  { id: '4', name: 'Sneha Joshi', email: 'sneha@agency.com', phone: '+91 65432 10987', company: 'Creative Agency', source: 'Email', status: 'New', notes: [], date: '2025-05-07' },
-  { id: '5', name: 'Vikram Singh', email: 'vikram@singh.in', phone: '+91 54321 09876', company: 'Singh Enterprises', source: 'Cold Call', status: 'Contacted', notes: [{ id: 'n4', text: 'Call scheduled for Monday', date: '2025-05-08' }], date: '2025-05-08' },
+  { id: '1', name: 'Khushi Patel', email: 'kkpp@example.com', phone: '+91 98765 43210', company: 'TechCorp', source: 'Website', status: 'New', notes: [{ id: 'n1', text: 'Interested in web development services', date: '2025-05-01' }], date: '2025-05-01' },
+  { id: '2', name: 'Dhananjay Patel', email: 'dj@gmail.com', phone: '+91 87654 32109', company: 'StartupXYZ', source: 'LinkedIn', status: 'Contacted', notes: [{ id: 'n2', text: 'Follow up next week', date: '2025-05-03' }], date: '2025-05-03' },
+  { id: '3', name: 'Divy Patel', email: 'dh@business.com', phone: '+91 76543 21098', company: 'Patel & Co.', source: 'Referral', status: 'Converted', notes: [{ id: 'n3', text: 'Signed the contract!', date: '2025-05-05' }], date: '2025-05-05' },
+  { id: '4', name: 'Heer Patel ', email: 'Patel@agency.com', phone: '+91 65432 10987', company: 'Creative Agency', source: 'Email', status: 'New', notes: [], date: '2025-05-07' },
+  { id: '5', name: 'Haya Patel', email: 'hdp@Patel.in', phone: '+91 54321 09876', company: 'Singh Enterprises', source: 'Cold Call', status: 'Contacted', notes: [{ id: 'n4', text: 'Call scheduled for Monday', date: '2025-05-08' }], date: '2025-05-08' },
 ];
 
 let currentFilter = 'All';
